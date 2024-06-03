@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -35,7 +36,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Week12Screen()
+                    Column {
+                        Text("202011255 김대영")
+                        Week12Screen()
+                    }
                 }
             }
         }
@@ -47,10 +51,10 @@ fun Week12Screen(){
     val context = LocalContext.current
     val itemdb = Firebase.database.getReference("ItemDB/items")
     val viewModel : ItemViewModel = viewModel(factory = ItemViewModelFactory(Repository(itemdb)))
-    var selectedItem by remember{
+    var selectedItem by remember {
         mutableStateOf<Item?>(null)
     }
-    val onClick = {item: Item -> selectedItem = item}
+    val onClick = { item: Item -> selectedItem = item }
     val itemList by viewModel.itemList.collectAsState(initial = emptyList())
     Column(
         modifier = Modifier.fillMaxSize()

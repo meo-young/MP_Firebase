@@ -19,22 +19,18 @@ import com.example.mp_firebase.viewmodel.ItemViewModel
 
 @Composable
 fun InputScreen(viewModel: ItemViewModel, selectedItem: Item?=null) {
-
     var itemId by remember {
         mutableStateOf("")
     }
-
     var itemName by remember {
         mutableStateOf("")
     }
     var itemQuantity by remember {
         mutableStateOf("")
     }
-
     val quantity = itemQuantity.toIntOrNull() ?: 0
     val id = itemId.toIntOrNull() ?: 0
     val item = Item(itemName, quantity, id)
-
     LaunchedEffect(selectedItem) {
         if (selectedItem != null) {
             itemName = selectedItem.itemName
@@ -42,7 +38,6 @@ fun InputScreen(viewModel: ItemViewModel, selectedItem: Item?=null) {
             itemId = selectedItem.itemId.toString()
         } 
     }
-
     fun clearText(){
         itemName = ""
         itemQuantity = ""
@@ -88,7 +83,7 @@ fun InputScreen(viewModel: ItemViewModel, selectedItem: Item?=null) {
                 Text("delete")
             }
             Button(onClick = {
-                viewModel.(item)
+                viewModel.GetItems(item)
                 clearText()
             } ) {
                 Text("find")
